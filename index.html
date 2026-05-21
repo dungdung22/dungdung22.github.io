@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="요괴산하국 — 인간계와 단절된 기이한 차원. 세 대요괴가 지배하는 폐쇄적 세계에서 펼쳐지는 몰입형 캐릭터 챗 세계관.">
+  <meta name="theme-color" content="#0a0812">
+  <title>요괴산하국 | 妖怪山河國</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+KR:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <!-- Age Gate -->
+  <div id="age-gate" class="age-gate" aria-modal="true" role="dialog" aria-labelledby="age-gate-title">
+    <div class="age-gate__panel">
+      <p class="age-gate__kanji" aria-hidden="true">妖怪</p>
+      <h1 id="age-gate-title" class="age-gate__title">성인 확인</h1>
+      <p class="age-gate__text">
+        본 콘텐츠는 <strong>성인(만 19세 이상)</strong>을 대상으로 합니다.<br>
+        폭력적·성적 묘사가 포함된 몰입형 로맨스 RP 세계관입니다.
+      </p>
+      <div class="age-gate__actions">
+        <button type="button" class="btn btn--primary" id="age-confirm">19세 이상입니다</button>
+        <button type="button" class="btn btn--ghost" id="age-deny">나가기</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="site" class="site hidden">
+    <canvas id="particles" class="particles" aria-hidden="true"></canvas>
+
+    <!-- Header -->
+    <header class="header" id="top">
+      <nav class="nav" aria-label="주요 메뉴">
+        <a class="nav__brand" href="#top">
+          <span class="nav__brand-kanji">妖怪山河國</span>
+          <span class="nav__brand-text">요괴산하국</span>
+        </a>
+        <button class="nav__toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-menu" aria-label="메뉴 열기">
+          <span></span><span></span><span></span>
+        </button>
+        <ul class="nav__menu" id="nav-menu">
+          <li><a href="#world" data-nav="world">세계관</a></li>
+          <li><a href="#characters" data-nav="characters">대요괴</a></li>
+          <li><a href="#regions" data-nav="regions">영역</a></li>
+          <li><a href="#gallery" data-nav="gallery">갤러리</a></li>
+        </ul>
+      </nav>
+      <div class="header__progress" id="scroll-progress" aria-hidden="true"></div>
+    </header>
+
+    <!-- Mobile bottom nav -->
+    <nav class="bottom-nav" id="bottom-nav" aria-label="모바일 메뉴">
+      <a href="#world" class="bottom-nav__item" data-nav="world">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+        <span>세계관</span>
+      </a>
+      <a href="#characters" class="bottom-nav__item" data-nav="characters">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span>대요괴</span>
+      </a>
+      <a href="#gallery" class="bottom-nav__item" data-nav="gallery">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16V4c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2zm-2 0H8V4h12v12zM2 6v14c0 1.1.9 2 2 2h14v-2H4V6H2zm12 2v2h3v-2h-3zm0 4v2h3v-2h-3z"/></svg>
+        <span>갤러리</span>
+      </a>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__slides" aria-hidden="true">
+        <div class="hero__slide hero__slide--active" data-theme="ice">
+          <img src="백연/백연_빙룡1.webp" alt="">
+        </div>
+        <div class="hero__slide" data-theme="desert">
+          <img src="카르한/카르한_첫만남.webp" alt="">
+        </div>
+        <div class="hero__slide" data-theme="fox">
+          <img src="적호/적호_교활한미소.webp" alt="">
+        </div>
+      </div>
+      <div class="hero__overlay" aria-hidden="true"></div>
+      <div class="hero__content">
+        <p class="hero__eyebrow anim-fade-up">Character Chat World</p>
+        <h1 class="hero__title anim-fade-up" style="--delay:0.1s">
+          <span class="hero__title-ko">요괴산하국</span>
+          <span class="hero__title-hanja">妖怪山河國</span>
+        </h1>
+        <p class="hero__lead anim-fade-up" style="--delay:0.2s">
+          인간계와 현실의 법칙이 완전히 단절된, 기이하고 폐쇄적인 차원.<br>
+          당신은 결계 너머에 떨어진 <em>유일한 인간</em>입니다.
+        </p>
+        <div class="hero__actions anim-fade-up" style="--delay:0.3s">
+          <a class="btn btn--primary" href="#characters">대요괴 만나기</a>
+          <a class="btn btn--outline" href="#gallery">CG 갤러리</a>
+        </div>
+        <div class="hero__dots anim-fade-up" style="--delay:0.4s" id="hero-dots" role="tablist" aria-label="히어로 슬라이드">
+          <button type="button" class="hero__dot hero__dot--active" data-slide="0" aria-label="백연" aria-selected="true"></button>
+          <button type="button" class="hero__dot" data-slide="1" aria-label="카르한" aria-selected="false"></button>
+          <button type="button" class="hero__dot" data-slide="2" aria-label="적호" aria-selected="false"></button>
+        </div>
+      </div>
+      <a class="hero__scroll" href="#world" aria-label="아래로 스크롤">
+        <span class="hero__scroll-line"></span>
+      </a>
+    </section>
+
+    <!-- World -->
+    <section class="section section--world" id="world">
+      <div class="container">
+        <header class="section__header reveal">
+          <span class="section__label">World Setting</span>
+          <h2 class="section__title">결계 너머의 법칙</h2>
+        </header>
+
+        <div class="world-grid">
+          <article class="world-card reveal" style="--i:0">
+            <div class="world-card__icon" aria-hidden="true">氣</div>
+            <h3>농밀한 요기</h3>
+            <p>공기는 인간의 폐를 짓누르는 요기(妖氣)로 가득합니다. 사계절의 경계가 무너져 각 대요괴의 영역마다 기후가 극단적으로 고정되어 있습니다.</p>
+          </article>
+          <article class="world-card reveal" style="--i:1">
+            <div class="world-card__icon" aria-hidden="true">人</div>
+            <h3>희귀한 인간</h3>
+            <p>요괴산하국에서 인간은 극도로 희귀한 존재입니다. 당신의 몸에서 흐르는 달콤한 영력과 살냄새는 이성을 지닌 대요괴들조차 본능적으로 끌어당깁니다.</p>
+          </article>
+          <article class="world-card reveal" style="--i:2">
+            <div class="world-card__icon" aria-hidden="true">縛</div>
+            <h3>유일한 법칙</h3>
+            <p>가장 강한 요괴가 당신을 독점하고, 완벽한 반려로 길들인다. 대요괴는 오직 자신의 예민한 감각—후각, 촉각, 청각—으로만 세상을 인식합니다.</p>
+          </article>
+        </div>
+
+        <blockquote class="world-quote reveal">
+          <p>대요괴는 전지전능하지 않습니다. 그들은 각자의 맹렬한 본성—집착, 오만, 소유욕—에 휘둘리며, 눈앞의 자극과 본능에 따라 움직입니다.</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- Characters -->
+    <section class="section section--characters" id="characters">
+      <div class="container">
+        <header class="section__header reveal">
+          <span class="section__label">Main Characters</span>
+          <h2 class="section__title">세 대요괴</h2>
+          <p class="section__desc">북·남·동을 각각 지배하는 절대자들. 탭하거나 스와이프하세요.</p>
+        </header>
+
+        <div class="char-tabs-scroll">
+          <div class="char-tabs" role="tablist" aria-label="캐릭터 선택">
+            <button class="char-tab char-tab--active" role="tab" aria-selected="true" aria-controls="panel-baekyeon" id="tab-baekyeon" data-char="baekyeon">
+              <span class="char-tab__thumb"><img src="백연/백연_미소.webp" alt="" width="48" height="48"></span>
+              <span class="char-tab__text">
+                <span class="char-tab__region">북부 · 성류각</span>
+                <span class="char-tab__name">백연</span>
+              </span>
+            </button>
+            <button class="char-tab" role="tab" aria-selected="false" aria-controls="panel-karhan" id="tab-karhan" data-char="karhan">
+              <span class="char-tab__thumb"><img src="카르한/카르한_웃다.webp" alt="" width="48" height="48"></span>
+              <span class="char-tab__text">
+                <span class="char-tab__region">남부 · 적사막</span>
+                <span class="char-tab__name">카르한</span>
+              </span>
+            </button>
+            <button class="char-tab" role="tab" aria-selected="false" aria-controls="panel-jeokho" id="tab-jeokho" data-char="jeokho">
+              <span class="char-tab__thumb"><img src="적호/적호_귀여운미소.webp" alt="" width="48" height="48"></span>
+              <span class="char-tab__text">
+                <span class="char-tab__region">동부 · 환요림</span>
+                <span class="char-tab__name">적호</span>
+              </span>
+            </button>
+          </div>
+        </div>
+
+        <div class="char-panels" id="char-panels">
+          <!-- 백연 -->
+          <article class="char-panel char-panel--active" role="tabpanel" id="panel-baekyeon" aria-labelledby="tab-baekyeon" data-theme="ice" data-char="백연">
+            <div class="char-panel__visual">
+              <img class="char-panel__main-img" src="백연/백연_빙룡1.webp" alt="백연 — 북부 성류각의 빙룡" width="600" height="800">
+              <div class="char-panel__glow" aria-hidden="true"></div>
+              <button type="button" class="char-panel__gallery-btn" data-char="백연">CG <span>56</span>장 보기</button>
+            </div>
+            <div class="char-panel__info">
+              <div class="char-panel__tags">
+                <span class="tag">존댓말</span>
+                <span class="tag">통제</span>
+                <span class="tag">냉혈</span>
+                <span class="tag">결벽</span>
+              </div>
+              <h3 class="char-panel__title">백연 <small>白淵</small></h3>
+              <p class="char-panel__subtitle">북부를 얼어붙게 만든 성류각의 절대자</p>
+              <p class="char-panel__desc">
+                발목까지 닿는 은발, 이마의 투명한 푸른 용뿔, 시체처럼 차가운 피부.
+                '가여운 나의 새', '나의 작은 반려'라 부르며 다정한 말투로 모든 것을 통제하는
+                가스라이팅의 달인. 겉으로는 애지중지하지만 본질은 지독한 소유욕입니다.
+              </p>
+              <dl class="char-panel__stats">
+                <div><dt>체온</dt><dd>시체처럼 차가움</dd></div>
+                <div><dt>복장</dt><dd>여민 푸른색 동양풍 관복</dd></div>
+                <div><dt>성격</dt><dd>다정함을 가장한 통제 · 감각 차단</dd></div>
+                <div><dt>영역</dt><dd>북부 성류각 · 영원한 겨울</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- 카르한 -->
+          <article class="char-panel" role="tabpanel" id="panel-karhan" aria-labelledby="tab-karhan" hidden data-theme="desert" data-char="카르한">
+            <div class="char-panel__visual">
+              <img class="char-panel__main-img" src="카르한/카르한_첫만남.webp" alt="카르한 — 남부 적사막의 사막야차" width="600" height="800">
+              <div class="char-panel__glow" aria-hidden="true"></div>
+              <button type="button" class="char-panel__gallery-btn" data-char="카르한">CG <span>47</span>장 보기</button>
+            </div>
+            <div class="char-panel__info">
+              <div class="char-panel__tags">
+                <span class="tag">반말·거친</span>
+                <span class="tag">알파</span>
+                <span class="tag">마초</span>
+                <span class="tag">본능</span>
+              </div>
+              <h3 class="char-panel__title">카르한 <small>Karhan</small></h3>
+              <p class="char-panel__subtitle">붉은 사막을 피로 물들인 투신</p>
+              <p class="char-panel__desc">
+                헝클어진 흑발, 황금빛 야수의 눈, 웃을 때마다 드러나는 송곳니.
+                상반신을 드러낸 채 금장신구를 주렁주렁 걸친 압도적 체격.
+                발견 즉시 본능적으로 '암컷'으로 각인하며, 거절은 단순한 앙탈로 치부합니다.
+              </p>
+              <dl class="char-panel__stats">
+                <div><dt>체온</dt><dd>끓는 물처럼 뜨거움</dd></div>
+                <div><dt>복장</dt><dd>아랍풍 검은 비단 · 금장신구</dd></div>
+                <div><dt>성격</dt><dd>거친 더티토크 · 마킹 · 체격차 압살</dd></div>
+                <div><dt>영역</dt><dd>남부 적사막 · 혈색 석양</dd></div>
+              </dl>
+            </div>
+          </article>
+
+          <!-- 적호 -->
+          <article class="char-panel" role="tabpanel" id="panel-jeokho" aria-labelledby="tab-jeokho" hidden data-theme="fox" data-char="적호">
+            <div class="char-panel__visual">
+              <img class="char-panel__main-img" src="적호/적호_교활한미소.webp" alt="적호 — 동부 환요림의 구미호" width="600" height="800">
+              <div class="char-panel__glow" aria-hidden="true"></div>
+              <button type="button" class="char-panel__gallery-btn" data-char="적호">CG <span>43</span>장 보기</button>
+            </div>
+            <div class="char-panel__info">
+              <div class="char-panel__tags">
+                <span class="tag">나른함</span>
+                <span class="tag">능글</span>
+                <span class="tag">유혹</span>
+                <span class="tag">교활</span>
+              </div>
+              <h3 class="char-panel__title">적호 <small>赤狐</small></h3>
+              <p class="char-panel__subtitle">천년 묵은 여우요괴, 환요림의 지배자</p>
+              <p class="char-panel__desc">
+                불타는 적발, 오른쪽 눈을 가리는 검은 안대, 아홉 개의 풍성한 꼬리.
+                가슴팍이 너슨한 보랏빛 유카타에 과자를 물고 늘어져 있지만,
+                원하는 것은 반드시 손에 넣는 교활함을 지닌 플러팅의 장인입니다.
+              </p>
+              <dl class="char-panel__stats">
+                <div><dt>체온</dt><dd>인간과 유사 · 환각성 타액</dd></div>
+                <div><dt>복장</dt><dd>보랏빛 유카타 · 과자</dd></div>
+                <div><dt>성격</dt><dd>꼬리 결박 · 관음 · 수치 플레이</dd></div>
+                <div><dt>영역</dt><dd>동부 환요림 · 환각 안개</dd></div>
+              </dl>
+            </div>
+          </article>
+        </div>
+
+        <p class="char-swipe-hint" aria-hidden="true">← 스와이프로 전환 →</p>
+      </div>
+    </section>
+
+    <!-- Regions -->
+    <section class="section section--regions" id="regions">
+      <div class="container">
+        <header class="section__header reveal">
+          <span class="section__label">Territories</span>
+          <h2 class="section__title">삼방 영역</h2>
+        </header>
+
+        <div class="region-map">
+          <button type="button" class="region region--north reveal" data-goto="baekyeon" style="--i:0">
+            <span class="region__compass">北</span>
+            <h3>성류각</h3>
+            <p>영원한 겨울 · 빙설 · 차가운 요기</p>
+            <span class="region__lord">백연</span>
+          </button>
+          <button type="button" class="region region--south reveal" data-goto="karhan" style="--i:1">
+            <span class="region__compass">南</span>
+            <h3>적사막</h3>
+            <p>끝없는 모래 · 혈색 석양 · 열기</p>
+            <span class="region__lord">카르한</span>
+          </button>
+          <div class="region region--center reveal" style="--i:2">
+            <p class="region__you">結界</p>
+            <p>당신이 떨어진<br>경계의 틈</p>
+          </div>
+          <button type="button" class="region region--east reveal" data-goto="jeokho" style="--i:3">
+            <span class="region__compass">東</span>
+            <h3>환요림</h3>
+            <p>환각 안개 · 붉은 단풍 · 꼬리 그림자</p>
+            <span class="region__lord">적호</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section section--gallery" id="gallery">
+      <div class="container">
+        <header class="section__header reveal">
+          <span class="section__label">Character CG</span>
+          <h2 class="section__title">CG 갤러리</h2>
+          <p class="section__desc">총 <strong id="gallery-count">146</strong>장 · 캐릭터별 필터 · 탭하여 확대</p>
+        </header>
+
+        <div class="gallery-filters reveal" role="tablist" aria-label="갤러리 필터">
+          <button type="button" class="gallery-filter gallery-filter--active" data-filter="all" aria-selected="true">전체</button>
+          <button type="button" class="gallery-filter" data-filter="백연" data-theme="ice" aria-selected="false">백연</button>
+          <button type="button" class="gallery-filter" data-filter="카르한" data-theme="desert" aria-selected="false">카르한</button>
+          <button type="button" class="gallery-filter" data-filter="적호" data-theme="fox" aria-selected="false">적호</button>
+        </div>
+
+        <div class="gallery-grid" id="gallery-grid" role="list"></div>
+        <div class="gallery-loading" id="gallery-loading">불러오는 중…</div>
+      </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox hidden" id="lightbox" role="dialog" aria-modal="true" aria-label="이미지 확대">
+      <button type="button" class="lightbox__close" id="lightbox-close" aria-label="닫기">&times;</button>
+      <button type="button" class="lightbox__nav lightbox__nav--prev" id="lightbox-prev" aria-label="이전">&lsaquo;</button>
+      <button type="button" class="lightbox__nav lightbox__nav--next" id="lightbox-next" aria-label="다음">&rsaquo;</button>
+      <figure class="lightbox__figure">
+        <img class="lightbox__img" id="lightbox-img" src="" alt="">
+        <figcaption class="lightbox__caption" id="lightbox-caption"></figcaption>
+      </figure>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer__inner">
+        <div class="footer__brand">
+          <span class="footer__kanji">妖怪山河國</span>
+          <span>요괴산하국 · Character Chat World</span>
+        </div>
+        <p class="footer__copy">본 세계관 및 캐릭터 CG는 창작 콘텐츠입니다. 무단 도용을 금합니다.</p>
+        <p class="footer__age">🔞 성인 전용 · 만 19세 이상</p>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
